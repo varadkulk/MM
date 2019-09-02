@@ -1,0 +1,13 @@
+\.idea/*
+*\.idea/*
+*.class
+*.code-workspace
+*.out
+*.o
+*.exe
+*.EXE
+*.obj
+*.OBJ
+*.COM
+.vscode/
+Angular/
