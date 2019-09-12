@@ -1,2 +1,2 @@
 # MM
- Microprocessors and Microcontrollers programs (Sem 5)
+Programs from Microprocessors and Micro controllers Course (Sem 5)
