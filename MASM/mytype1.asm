@@ -4,17 +4,16 @@
 	fname db 'a.txt',0
 	fhandle dw 0
 
-	mff db 13,10, "FILE FOUND$"
-	mfnf db 13,10,"FILE NOT FOUND$"
+	mff db  "FILE FOUND$"
+	mfnf db "FILE NOT FOUND$"
 
 	mfrs db 13,10,"FILE READ SUCESSFUL$"
 	mfrns db 13,10,"FILE READ NOT SUCESSFUL$"
 
-	mfc db 13,10,"FILE CONTENTS ARE: $"
-	ms db 13,10,"$"
+	mfc db 13,10,"FILE CONTENTS ARE:",13,10,"$"
 
-	mfcs db 13,10,"FILE CLOSED SUCCESSFUL $"
-	mfcf db 13,10,"FILE CLOSING FAILED$"
+	mfcs db "FILE CLOSED SUCCESSFUL$"
+	mfcf db "FILE CLOSING FAILED$"
 
 	buffer db 100 dup ()
 
@@ -23,55 +22,57 @@
 	mov ds,ax
 
 	lea dx,fname
-	mov ah,3dh
-	mov al,2
+	mov ah,3dh										;interrupt to open file
+	mov al,0
 	int 21h
 
 	jnc ff
-	lea dx,mfnf
+	lea dx,mfnf										;File not found error
 	jnz ext
 
-	ff:
+	ff:												;File found
 		mov fhandle,ax
 		lea dx,mff
 		mov ah,09h
 		int 21h
-		mov ah,3fh
+
+		mov ah,3fh									;interrupt to read file
 		mov bx,fhandle
 		lea dx,buffer
 		mov cx,100
 		xor si,si
 		int 21h
+
 		jnc rf
 		lea dx,mfrns
 		jnz ext
 
-	rf:
+	rf:												;Read file
 		mov si,ax
-		mov buffer[si+1],'$'
-		lea dx,mfrs
-		mov ah,09h
-		int 21h
-		lea dx,mfc
-		mov ah,09h
-		int 21h
-		lea dx,ms
-		mov ah,09h
-		int 21h
-		lea dx,buffer 
+		mov buffer[si+1],'$'						;Transfering data to buffer
+		
+		lea dx,mfrs									;File read sucessful
 		mov ah,09h
 		int 21h
 
-		mov ah,3eh
+		lea dx,mfc									;Display before file data
+		mov ah,09h
+		int 21h
+
+		lea dx,buffer								;Display File contents 
+		mov ah,09h
+		int 21h
+
+		mov ah,3eh									;FIle Closing
 		int 21h
 		jnc fcs
-		lea dx,mfcf
+		lea dx,mfcf									;FIle Closing Failed error
 		jnz ext
 
 	fcs:
-		lea dx,mfcs
+		lea dx,mfcs									;File closing sucessful
 	
-	ext:
+	ext:											;Exit
 		mov ah,09h
 		int 21h
 
