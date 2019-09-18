@@ -4,16 +4,16 @@
 	fname db 'a.txt',0
 	fhandle dw 0
 
-	mff db  "FILE FOUND$"
-	mfnf db "FILE NOT FOUND$"
+	mff db  "File found$"
+	mfnf db "File not Found$"
 
-	mfrs db 13,10,"FILE READ SUCESSFUL$"
-	mfrns db 13,10,"FILE READ NOT SUCESSFUL$"
+	mfrs db 13,10,"File read sucessful$"
+	mfrns db 13,10,"File read not sucessful$"
 
-	mfc db 13,10,"FILE CONTENTS ARE:",13,10,"$"
+	mfc db 13,10,"File contents are:",13,10,"$"
 
-	mfcs db "FILE CLOSED SUCCESSFUL$"
-	mfcf db "FILE CLOSING FAILED$"
+	mfcs db 13,10,"File closed sucessful$"
+	mfcf db 13,10,"File closing failed$"
 
 	buffer db 100 dup ()
 
