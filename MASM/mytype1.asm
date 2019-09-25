@@ -12,7 +12,7 @@
 
 	mfc db 13,10,"File contents are:",13,10,"$"
 
-	mfcs db 13,10,"File closed sucessful$"
+	mfcs db 13,10,"File closed sucessfully$"
 	mfcf db 13,10,"File closing failed$"
 
 	buffer db 100 dup ()
@@ -65,6 +65,7 @@
 
 		mov ah,3eh									;FIle Closing
 		int 21h
+
 		jnc fcs
 		lea dx,mfcf									;FIle Closing Failed error
 		jnz ext
