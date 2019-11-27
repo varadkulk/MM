@@ -14,7 +14,7 @@ int power(int x)
 
 int main()
 {
-	int mainMemory = (64 * 1024), line = 32, cs = (8 * 1024);
+	int mainMemory = (64 * 1024), line = 32, cs = ((8 * 1024)/2);
 	int n = power(mainMemory), b = power(line), csp = power(cs);
 	int index = cs / line, m = csp - b;
 	int tag = n - m - b;
